@@ -1,6 +1,27 @@
 #! /bin/bash
 
 # expected data format: number of rolls; number of Sides; number to add
+function mainMenu() {
+	clear
+
+	local totalCharacters=$(ls -1q *.dice | wc -l | xargs )
+	local characterList=$(ls | grep .dice | cut -d'.' -f1 | xargs)
+	local counter=1
+	local uInput
+
+
+	echo "Available characters:"
+	for character in $characterList; do
+		echo "$counter: $character"
+		counter=$(( $counter+ 1 ))
+	done
+	echo "N for new character, currently depreciated"
+	echo "character number, (N)ew character, (D)elete character, (E)xit"
+	read uInput
+	echo $uInput
+
+	#case statement to make a new file, read an old file, or quit.
+}
 
 function roller(){
 	#giving incoming variables names, keeping format that DND uses
@@ -33,9 +54,7 @@ function rollerCutter(){
 	echo "result: $result"
 }
 
-touch cody.dice
-echo "1,20,6" >> cody.dice
-
+mainMenu
 while read line
 do
 	echo $line
